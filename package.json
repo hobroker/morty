@@ -1,0 +1,33 @@
+{
+  "name": "morty",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.ts",
+    "build": "tsc --project ./",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hobroker/morty.git"
+  },
+  "author": "Igor Leahu <igor.leahu24@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hobroker/morty/issues"
+  },
+  "homepage": "https://github.com/hobroker/morty#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.11",
+    "@types/node": "^14.14.25",
+    "nodemon": "^2.0.7",
+    "prettier": "^2.2.1",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.5"
+  }
+}
