@@ -1,23 +1,15 @@
-import { Request, Response, Router } from "express";
+import { Request, Response } from "express";
+import Router from "../util/Router";
 
-class UserRouter {
-  private _router = Router();
-  public readonly path = "/users";
+class UserRouter extends Router {
+  protected configure() {
+    const path = "/users";
 
-  get router() {
-    return this._router;
+    this.router.get(path, this.getUsers);
   }
 
-  constructor() {
-    this.configure();
-  }
-
-  private configure() {
-    this._router.get(this.path, UserRouter.getUsers);
-  }
-
-  private static getUsers(req: Request, res: Response) {
-    res.status(200).json([
+  private getUsers(req: Request, res: Response) {
+    res.send([
       {
         id: 1,
       },
@@ -25,4 +17,4 @@ class UserRouter {
   }
 }
 
-export = new UserRouter().router;
+export = UserRouter;

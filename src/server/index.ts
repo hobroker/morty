@@ -1,9 +1,12 @@
 import express from "express";
+import errorHandlerMiddleware from "./middlewares/errorHandler";
+import loggerMiddleware from "./middlewares/logger";
 import UserRouter from "./routes/user";
 
 class Server {
   private readonly port: number;
   private readonly path = "/api";
+  private readonly routers = [UserRouter];
 
   constructor(port: number) {
     this.port = port;
@@ -12,14 +15,21 @@ class Server {
   private app = express();
 
   private setupRouters() {
-    const routers = [UserRouter];
-    routers.forEach((router) => {
-      this.app.use(this.path, router);
+    this.routers.forEach((Router) => {
+      const instance = new Router();
+
+      this.app.use(this.path, instance.router);
     });
   }
 
-  public start() {
+  private setup() {
+    this.app.use(loggerMiddleware);
     this.setupRouters();
+    this.app.use(errorHandlerMiddleware);
+  }
+
+  public start() {
+    this.setup();
 
     return new Promise((resolve) => {
       this.app.listen(this.port, () => resolve(this));
@@ -27,4 +37,4 @@ class Server {
   }
 }
 
-export default Server;
+export = Server;
