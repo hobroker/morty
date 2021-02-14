@@ -10,6 +10,8 @@ class Server {
 
   constructor(port: number) {
     this.port = port;
+
+    this.setup();
   }
 
   private app = express();
@@ -23,13 +25,17 @@ class Server {
   }
 
   private setup() {
-    this.app.use(loggerMiddleware);
-    this.setupRouters();
-    this.app.use(errorHandlerMiddleware);
+    this.addMiddleware(loggerMiddleware());
+    this.addMiddleware(express.json());
+  }
+
+  addMiddleware(middleware: any) {
+    this.app.use(middleware);
   }
 
   public start() {
-    this.setup();
+    this.setupRouters();
+    this.addMiddleware(errorHandlerMiddleware());
 
     return new Promise((resolve) => {
       this.app.listen(this.port, () => resolve(this));

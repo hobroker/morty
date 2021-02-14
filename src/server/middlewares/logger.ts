@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 
-const loggerMiddleware = (
+const loggerMiddleware = () => (
   request: Request,
   response: Response,
   next: NextFunction
