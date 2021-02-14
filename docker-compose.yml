@@ -3,6 +3,8 @@ version: "3"
 services:
   api:
     build: .
+    environment:
+      PORT: 3000
     ports:
       - "3000:3000"
   mongo:
@@ -11,4 +13,16 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - ".cache/mongo:/data/db"
+      - ".data/mongo:/data/db"
+  rabbitmq:
+    image: bitnami/rabbitmq
+    ports:
+      - "4369:4369"
+      - "5672:5672"
+      - "25672:25672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_USERNAME=user
+      - RABBITMQ_PASSWORD=rabbit
+    volumes:
+      - ".data/rabbitmq:/rabbitmq"
