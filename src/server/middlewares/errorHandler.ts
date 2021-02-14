@@ -9,7 +9,8 @@ const errorHandlerMiddleware = () => (
 ) => {
   const statusCode = err.statusCode || 500;
 
-  res.status(statusCode).json({
+  res.status(statusCode);
+  res.json({
     statusCode,
     message: err.message,
   });
